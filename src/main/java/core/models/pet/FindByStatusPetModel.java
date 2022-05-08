@@ -1,4 +1,4 @@
-package core.model;
+package core.models.pet;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
@@ -7,9 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
@@ -17,18 +19,16 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(NON_NULL)
-public class PetModel {
+@ToString
+@Data
+public class FindByStatusPetModel {
 
-  private Long id;
+  private String id;
   private String name;
   private List<String> photoUrls;
   private String status;
-  private Category category;
-  private List<Tags> tags;
-
-  private int code;
-  private String type;
-  private String message;
+  private PetModel.Category category;
+  private List<PetModel.Tags> tags;
 
   @Getter
   @Setter
@@ -36,6 +36,8 @@ public class PetModel {
   @AllArgsConstructor
   @NoArgsConstructor
   @JsonInclude(NON_NULL)
+  @ToString
+  @Data
   public static class Category {
 
     private Integer id;
@@ -48,18 +50,20 @@ public class PetModel {
   @AllArgsConstructor
   @NoArgsConstructor
   @JsonInclude(NON_NULL)
+  @ToString
+  @Data
   public static class Tags {
 
     private Integer id;
     private String name;
   }
 
-  public static List<String> getTagsName(PetModel petModel){
-    List<String> tagsName = new ArrayList<>();
-    for (Tags tag : petModel.getTags()) {
-      tagsName.add(tag.getName());
+  public static List<String> getNamesPets(List<FindByStatusPetModel> pets) {
+    List<String> petsNames = new ArrayList<>();
+    for (FindByStatusPetModel pet : pets) {
+      petsNames.add(pet.getName());
     }
-    return tagsName;
+    return petsNames;
   }
 
 }
